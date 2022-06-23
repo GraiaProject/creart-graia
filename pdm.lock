@@ -1,0 +1,15 @@
+[[package]]
+name = "creart"
+version = "0.1.0"
+requires_python = ">=3.8"
+summary = "a universal, extensible class instantiation helper"
+
+[metadata]
+lock_version = "3.1"
+content_hash = "sha256:551dc22efb578953e3e0e8c74469d5f510d76ba0ce9f946a7d401dc9d41c2b58"
+
+[metadata.files]
+"creart 0.1.0" = [
+    {file = "creart-0.1.0-py3-none-any.whl", hash = "sha256:645fa7e2e9f9b7218640d0d1564d2a272f186c20de9aeaf51e30cdb5fb574595"},
+    {file = "creart-0.1.0.tar.gz", hash = "sha256:f75e4c38eea6630fb32cd5b5fc0aa895a8c0a19b8cd7dde8b7a1a312b06da5ea"},
+]
