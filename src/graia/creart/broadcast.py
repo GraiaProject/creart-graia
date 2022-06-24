@@ -6,11 +6,15 @@ from creart import AbstractCreator, CreateTargetInfo, it
 
 if TYPE_CHECKING:
     from graia.broadcast import Broadcast
+    from graia.broadcast.interrupt import InterruptControl
     from graia.saya.builtins.broadcast.behaviour import BroadcastBehaviour
 
 
 class BroadcastCreator(AbstractCreator):
-    targets = (CreateTargetInfo("graia.broadcast", "Broadcast"),)
+    targets = (
+        CreateTargetInfo("graia.broadcast", "Broadcast"),
+        CreateTargetInfo("graia.broadcast.interrupt", "InterruptControl"),
+    )
 
     @staticmethod
     def available() -> bool:
@@ -22,12 +26,18 @@ class BroadcastCreator(AbstractCreator):
             return False
 
     @staticmethod
-    def create(create_type: type[Broadcast]) -> Broadcast:
-        import asyncio
+    def create(create_type: type[Broadcast]) -> Broadcast | InterruptControl:
+        from graia.broadcast import Broadcast
+        from graia.broadcast.interrupt import InterruptControl
 
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        return create_type(loop=loop)
+        if issubclass(create_type, Broadcast):
+            import asyncio
+
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            return create_type(loop=loop)
+        elif issubclass(create_type, InterruptControl):
+            return InterruptControl(it(Broadcast))
 
 
 class BroadcastBehaviourCreator(AbstractCreator):
