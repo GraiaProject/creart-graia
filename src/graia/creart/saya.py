@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from creart import AbstractCreator, CreateTargetInfo, it
+from creart import AbstractCreator, CreateTargetInfo, exists_module, it
 
 from .broadcast import BroadcastCreator
 from .scheduler import SchedulerCreator
@@ -12,16 +12,17 @@ if TYPE_CHECKING:
 
 
 class SayaCreator(AbstractCreator):
-    targets = (CreateTargetInfo("graia.saya", "Saya"),)
+    targets = (CreateTargetInfo(
+        module="graia.saya",
+        identify="Saya",
+        humanized_name="Saya",
+        description="<common,graia,saya> a modular implementation with modern design and injection",
+        author=["GraiaProject@github"]
+    ),)
 
     @staticmethod
     def available() -> bool:
-        try:
-            import graia.saya
-
-            return True
-        except ImportError:
-            return False
+        return exists_module("graia.saya")
 
     @staticmethod
     def create(create_type: type[Saya]) -> Saya:

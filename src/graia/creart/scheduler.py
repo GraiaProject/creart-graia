@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from creart import AbstractCreator, CreateTargetInfo, it
+from creart import AbstractCreator, CreateTargetInfo, exists_module, it, mixin
 
 from .broadcast import BroadcastCreator
 
@@ -12,16 +12,18 @@ if TYPE_CHECKING:
 
 
 class SchedulerCreator(AbstractCreator):
-    targets = (CreateTargetInfo("graia.scheduler", "Scheduler"),)
+    targets = (CreateTargetInfo(
+        module="graia.scheduler",
+        identify="Scheduler",
+        humanized_name="Graia Scheduler",
+        description="<common,graia,scheduler> a simple but powerful scheduler based on asyncio & broadcast control",
+        author=["GraiaProject@github"]
+    ),)
 
     @staticmethod
+    @mixin(BroadcastCreator)
     def available() -> bool:
-        try:
-            import graia.scheduler
-
-            return BroadcastCreator.available()
-        except ImportError:
-            return False
+        return exists_module("graia.scheduler")
 
     @staticmethod
     def create(create_type: type[GraiaScheduler]) -> GraiaScheduler:
@@ -33,17 +35,19 @@ class SchedulerCreator(AbstractCreator):
 
 class SchedulerBehaviourCreator(AbstractCreator):
     targets = (
-        CreateTargetInfo("graia.scheduler.saya.behaviour", "GraiaSchedulerBehaviour"),
+        CreateTargetInfo(
+            module="graia.scheduler.saya.behaviour",
+            identify="GraiaSchedulerBehaviour",
+            humanized_name="Saya for Graia Scheduler",
+            description="<common,graia,scheduler,saya,behaviour> saya support for Graia Scheduler",
+            author=["GraiaProject@github"]
+        ),
     )
 
     @staticmethod
+    @mixin(SchedulerCreator)
     def available() -> bool:
-        try:
-            import graia.saya
-
-            return SchedulerCreator.available()
-        except ImportError:
-            return False
+        return exists_module("graia.saya")
 
     @staticmethod
     def create(create_type: type[GraiaSchedulerBehaviour]) -> GraiaSchedulerBehaviour:

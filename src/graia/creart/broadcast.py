@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from creart import AbstractCreator, CreateTargetInfo, it
+from creart import AbstractCreator, CreateTargetInfo, exists_module, it, mixin
 
 if TYPE_CHECKING:
     from graia.broadcast import Broadcast
@@ -12,18 +12,25 @@ if TYPE_CHECKING:
 
 class BroadcastCreator(AbstractCreator):
     targets = (
-        CreateTargetInfo("graia.broadcast", "Broadcast"),
-        CreateTargetInfo("graia.broadcast.interrupt", "InterruptControl"),
+        CreateTargetInfo(
+            module="graia.broadcast",
+            identify="Broadcast",
+            humanized_name="Broadcast Control",
+            description="<common,graia,broadcast> a high performance, highly customizable, elegantly designed event system based on asyncio",
+            author=["GraiaProject@github"]
+        ),
+        CreateTargetInfo(
+            module="graia.broadcast.interrupt",
+            identify="InterruptControl",
+            humanized_name="Interrupt",
+            description="<common,graia,broadcast,interrupt> Interrupt feature for broadcast control.",
+            author=["GraiaProject@github"]
+        ),
     )
 
     @staticmethod
     def available() -> bool:
-        try:
-            import graia.broadcast
-
-            return True
-        except ImportError:
-            return False
+        return exists_module("graia.broadcast")
 
     @staticmethod
     def create(create_type: type[Broadcast]) -> Broadcast | InterruptControl:
@@ -46,14 +53,9 @@ class BroadcastBehaviourCreator(AbstractCreator):
     )
 
     @staticmethod
+    @mixin(BroadcastCreator)
     def available() -> bool:
-        try:
-            import graia.broadcast
-            import graia.saya
-
-            return True
-        except ImportError:
-            return False
+        return exists_module("graia.saya")
 
     @staticmethod
     def create(create_type: type[BroadcastBehaviour]) -> BroadcastBehaviour:

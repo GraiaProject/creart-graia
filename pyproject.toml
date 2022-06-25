@@ -1,6 +1,6 @@
 [project]
 name = "creart-graia"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = [
     {name = "GreyElaina", email = "GreyElaina@outlook.com"},
