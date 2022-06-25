@@ -15,7 +15,7 @@ class SchedulerCreator(AbstractCreator):
     targets = (
         CreateTargetInfo(
             module="graia.scheduler",
-            identify="Scheduler",
+            identify="GraiaScheduler",
             humanized_name="Graia Scheduler",
             description="<common,graia,scheduler> a simple but powerful scheduler based on asyncio & broadcast control",
             author=["GraiaProject@github"],
