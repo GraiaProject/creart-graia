@@ -33,7 +33,9 @@ class BroadcastCreator(AbstractCreator):
         return exists_module("graia.broadcast")
 
     @staticmethod
-    def create(create_type: type[Broadcast]) -> Broadcast | InterruptControl:
+    def create(
+        create_type: type[Broadcast | InterruptControl],
+    ) -> Broadcast | InterruptControl:
         from graia.broadcast import Broadcast
         from graia.broadcast.interrupt import InterruptControl
 
@@ -44,7 +46,7 @@ class BroadcastCreator(AbstractCreator):
             asyncio.set_event_loop(loop)
             return create_type(loop=loop)
         elif issubclass(create_type, InterruptControl):
-            return InterruptControl(it(Broadcast))
+            return create_type(it(Broadcast))
 
 
 class BroadcastBehaviourCreator(AbstractCreator):
