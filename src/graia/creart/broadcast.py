@@ -17,14 +17,14 @@ class BroadcastCreator(AbstractCreator):
             identify="Broadcast",
             humanized_name="Broadcast Control",
             description="<common,graia,broadcast> a high performance, highly customizable, elegantly designed event system based on asyncio",
-            author=["GraiaProject@github"]
+            author=["GraiaProject@github"],
         ),
         CreateTargetInfo(
             module="graia.broadcast.interrupt",
             identify="InterruptControl",
             humanized_name="Interrupt",
             description="<common,graia,broadcast,interrupt> Interrupt feature for broadcast control.",
-            author=["GraiaProject@github"]
+            author=["GraiaProject@github"],
         ),
     )
 
@@ -51,7 +51,9 @@ class BroadcastCreator(AbstractCreator):
 
 class BroadcastBehaviourCreator(AbstractCreator):
     targets = (
-        CreateTargetInfo("graia.saya.builtins.broadcast.behaviour", "Broadcast"),
+        CreateTargetInfo(
+            "graia.saya.builtins.broadcast.behaviour", "BroadcastBehaviour"
+        ),
     )
 
     @staticmethod
@@ -61,5 +63,7 @@ class BroadcastBehaviourCreator(AbstractCreator):
 
     @staticmethod
     def create(create_type: type[BroadcastBehaviour]) -> BroadcastBehaviour:
+        from graia.broadcast import Broadcast
+
         broadcast = it(Broadcast)
         return create_type(broadcast)

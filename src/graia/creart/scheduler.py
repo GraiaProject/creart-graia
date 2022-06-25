@@ -12,13 +12,15 @@ if TYPE_CHECKING:
 
 
 class SchedulerCreator(AbstractCreator):
-    targets = (CreateTargetInfo(
-        module="graia.scheduler",
-        identify="Scheduler",
-        humanized_name="Graia Scheduler",
-        description="<common,graia,scheduler> a simple but powerful scheduler based on asyncio & broadcast control",
-        author=["GraiaProject@github"]
-    ),)
+    targets = (
+        CreateTargetInfo(
+            module="graia.scheduler",
+            identify="Scheduler",
+            humanized_name="Graia Scheduler",
+            description="<common,graia,scheduler> a simple but powerful scheduler based on asyncio & broadcast control",
+            author=["GraiaProject@github"],
+        ),
+    )
 
     @staticmethod
     @mixin(BroadcastCreator)
@@ -40,7 +42,7 @@ class SchedulerBehaviourCreator(AbstractCreator):
             identify="GraiaSchedulerBehaviour",
             humanized_name="Saya for Graia Scheduler",
             description="<common,graia,scheduler,saya,behaviour> saya support for Graia Scheduler",
-            author=["GraiaProject@github"]
+            author=["GraiaProject@github"],
         ),
     )
 

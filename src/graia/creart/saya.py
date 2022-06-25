@@ -12,13 +12,15 @@ if TYPE_CHECKING:
 
 
 class SayaCreator(AbstractCreator):
-    targets = (CreateTargetInfo(
-        module="graia.saya",
-        identify="Saya",
-        humanized_name="Saya",
-        description="<common,graia,saya> a modular implementation with modern design and injection",
-        author=["GraiaProject@github"]
-    ),)
+    targets = (
+        CreateTargetInfo(
+            module="graia.saya",
+            identify="Saya",
+            humanized_name="Saya",
+            description="<common,graia,saya> a modular implementation with modern design and injection",
+            author=["GraiaProject@github"],
+        ),
+    )
 
     @staticmethod
     def available() -> bool:
