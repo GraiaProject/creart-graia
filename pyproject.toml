@@ -1,6 +1,6 @@
 [project]
 name = "creart-graia"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = [
     {name = "GreyElaina", email = "GreyElaina@outlook.com"},
@@ -26,6 +26,7 @@ dev = [
 
 
 [project.entry-points."creart.creators"]
+loop = "graia.creart.broadcast:EventLoopCreator"
 broadcast = "graia.creart.broadcast:BroadcastCreator"
 broadcast_behaviour = "graia.creart.broadcast:BroadcastBehaviourCreator"
 saya = "graia.creart.saya:SayaCreator"
