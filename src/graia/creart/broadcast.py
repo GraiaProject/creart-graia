@@ -52,7 +52,7 @@ class BroadcastCreator(AbstractCreator):
         from graia.broadcast.interrupt import InterruptControl
 
         if issubclass(create_type, Broadcast):
-            return create_type(loop=it(AbstractEventLoop))
+            return create_type()
         elif issubclass(create_type, InterruptControl):
             return create_type(it(Broadcast))
 
