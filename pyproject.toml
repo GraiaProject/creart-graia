@@ -20,7 +20,7 @@ includes = ["src/graia"]
 dev = [
     "graia-saya>=0.0.16",
     "graia-scheduler>=0.0.8",
-    "graia-broadcast>=0.18.1",
+    "graia-broadcast>=0.22.1",
     "ipython>=8.4.0",
 ]
 

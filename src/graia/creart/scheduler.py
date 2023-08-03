@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING
 
 from creart import AbstractCreator, CreateTargetInfo, exists_module, it, mixin
@@ -31,8 +32,7 @@ class SchedulerCreator(AbstractCreator):
     def create(create_type: type[GraiaScheduler]) -> GraiaScheduler:
         from graia.broadcast import Broadcast
 
-        broadcast = it(Broadcast)
-        return create_type(loop=broadcast.loop, broadcast=broadcast)
+        return create_type(loop=it(asyncio.AbstractEventLoop), broadcast=it(Broadcast))
 
 
 class SchedulerBehaviourCreator(AbstractCreator):
